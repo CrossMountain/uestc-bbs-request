@@ -1,4 +1,4 @@
-var cheerio=require("cheerio")
+var cheerio = require("cheerio")
 //获取cookie
 function getCookieArr(arr) {
     var res = []
@@ -48,11 +48,11 @@ function arrReduce(arr) {
     return tempArr
 }
 
-var util={
-    getCookieArr:getCookieArr,
-    getStr:getStr,
-    HTMLExtractAttr:HTMLExtractAttr,
-    arrReduce:arrReduce
+var util = {
+    getCookieArr,
+    getStr,
+    HTMLExtractAttr,
+    arrReduce
 }
 
-module.exports=util
+module.exports = util
