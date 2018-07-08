@@ -1,0 +1,19 @@
+{
+  "name": "req",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bufferhelper": "^0.2.1",
+    "cheerio": "^1.0.0-rc.2",
+    "iconv-lite": "^0.4.23",
+    "request": "^2.87.0",
+    "xml2js": "^0.4.19"
+  }
+}
