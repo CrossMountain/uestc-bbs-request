@@ -5,9 +5,13 @@ var initOps = task.init()
 //async/await串行执行
 async function asyncFunc() {
     var temp = initOps
-    for (var i = 0; i < task.taskQueue.length; i++) {
-        temp = await task.taskQueue[i](temp)
-    }
+    try{
+       for (var i = 0; i < task.taskQueue.length; i++) {
+           temp = await task.taskQueue[i](temp)
+       } 
+   }catch(e){
+        console.log(e)
+   }
 }
 
 
