@@ -18,9 +18,9 @@ async function asyncFunc() {
 //promise串行执行
 function promiseFunc() {
     task.taskQueue.reduce((last, cur) => {
-        return Promise.resolve(last).then(cur)
-    }, initOps)
+        return last.then(cur)
+    }, Promise.resolve(initOps))
 }
 
-asyncFunc()
-// promiseFunc()
+// asyncFunc()
+promiseFunc()
