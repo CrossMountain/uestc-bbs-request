@@ -1,26 +1,35 @@
-var task = require("./task.js")
+const axios = require('axios')
 
-var initOps = task.init()
+const {
+    getLoginOps,
+    getFormhashOps,
+    getPostOps,
+    getResult
+} = require("./task.js")
 
-//async/await串行执行
-async function asyncFunc() {
-    var temp = initOps
-    try{
-       for (var i = 0; i < task.taskQueue.length; i++) {
-           temp = await task.taskQueue[i](temp)
-       } 
-   }catch(e){
-        console.log(e)
-   }
+const { interval } = require('./ops.js')
+
+async function main() {
+    const preLoginRes = await axios.get('http://bbs.uestc.edu.cn/member.php?mod=logging&action=login')
+
+    const loginOptions = getLoginOps(preLoginRes)
+
+    const loginRes = await axios(loginOptions)
+    const payload = getFormhashOps(loginRes)
+
+    const res = await axios(payload)
+
+    const postOpstions = getPostOps(res)
+    const postRes = await axios(postOpstions)
+
+    getResult(postRes)
 }
 
-
-//promise串行执行
-function promiseFunc() {
-    task.taskQueue.reduce((last, cur) => {
-        return last.then(cur)
-    }, Promise.resolve(initOps))
+if (interval === 0) {
+    main()
+} else {
+    setInterval(() => {
+        main()
+    }, interval)
 }
 
-// asyncFunc()
-promiseFunc()

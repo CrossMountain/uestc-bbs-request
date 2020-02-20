@@ -1,33 +1,32 @@
-var cheerio = require("cheerio")
+const cheerio = require("cheerio")
 //获取cookie
 function getCookieArr(arr) {
-    var res = []
+    const res = []
     arr.forEach((item, index) => {
         res.push(getStr(item, "", ";"))
     })
     return res
 }
 
-//获取leftstr与rightstr中间的字符串
+//获取 leftstr 与 rightstr 中间的字符串
 function getStr(str, leftstr, rightstr) {
     if (!str) return ''
-    var reg = new RegExp(leftstr + "([^;]+)" + rightstr)
-    var res = str.match(reg)
+    const reg = new RegExp(leftstr + "([^;]+)" + rightstr)
+    const res = str.match(reg)
     if (res) {
         return res[1]
     } else {
         return ''
     }
-
 }
 
 //HTML中获取指定selector的attribute的值
 function HTMLExtractAttr(HTML, selector, attrName) {
-    var $ = cheerio.load(HTML)
-    var all = $(selector)
-    var resArr = []
-    all.each(function() {
-        var a = $(this)
+    const $ = cheerio.load(HTML)
+    const all = $(selector)
+    const resArr = []
+    all.each(function () {
+        const a = $(this)
         resArr.push(a.attr(attrName))
 
     })
@@ -36,9 +35,9 @@ function HTMLExtractAttr(HTML, selector, attrName) {
 
 //数组去重
 function arrReduce(arr) {
-    var tempArr = arr.slice(0)
-    for (var i = 0; i < tempArr.length; i++) {
-        for (var j = i + 1; j < tempArr.length; j++) {
+    const tempArr = arr.slice(0)
+    for (let i = 0; i < tempArr.length; i++) {
+        for (let j = i + 1; j < tempArr.length; j++) {
             if (tempArr[i] === tempArr[j]) {
                 tempArr.splice(j, 1)
                 j--
@@ -48,11 +47,16 @@ function arrReduce(arr) {
     return tempArr
 }
 
-var util = {
+function getRandomItem(arr) {
+    const { length } = arr
+    const index = Math.floor(Math.random() * length)
+    return arr[index]
+}
+
+module.exports = {
     getCookieArr,
     getStr,
     HTMLExtractAttr,
-    arrReduce
+    arrReduce,
+    getRandomItem
 }
-
-module.exports = util
